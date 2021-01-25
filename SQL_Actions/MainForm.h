@@ -4,7 +4,7 @@
 //#include <msclr\marshal_cppstd.h>
 namespace SQLActions {
 
-	//using namespace System;
+	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
@@ -24,13 +24,16 @@ namespace SQLActions {
 			
 		}
 		sqlConn^ mSql;
+		DataTable^ dbDataToInsert = gcnew DataTable;
 	private: System::Windows::Forms::ListBox^ List_Tables;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Button^ btn_Select;
 	private: System::Windows::Forms::Button^ btn_Insert;
 	private: System::Windows::Forms::Button^ btn_Update;
 	private: System::Windows::Forms::GroupBox^ groupBox2;
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::DataGridView^ datag_Insert;
 	private: System::Windows::Forms::Button^ btn_Refresh;
 	private: System::Windows::Forms::Button^ btn_Delete;
 	private: System::Windows::Forms::DataGridView^ dataG_Results;
@@ -88,12 +91,14 @@ namespace SQLActions {
 			this->btn_Update = (gcnew System::Windows::Forms::Button());
 			this->btn_Delete = (gcnew System::Windows::Forms::Button());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->btn_Refresh = (gcnew System::Windows::Forms::Button());
+			this->datag_Insert = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataG_Results))->BeginInit();
 			this->groupBox2->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->datag_Insert))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// groupBox1
@@ -159,6 +164,7 @@ namespace SQLActions {
 			resources->ApplyResources(this->List_Tables, L"List_Tables");
 			this->List_Tables->FormattingEnabled = true;
 			this->List_Tables->Name = L"List_Tables";
+			this->List_Tables->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::List_Tables_SelectedIndexChanged);
 			// 
 			// label4
 			// 
@@ -192,29 +198,32 @@ namespace SQLActions {
 			resources->ApplyResources(this->btn_Update, L"btn_Update");
 			this->btn_Update->Name = L"btn_Update";
 			this->btn_Update->UseVisualStyleBackColor = true;
+			this->btn_Update->Click += gcnew System::EventHandler(this, &MainForm::btn_Update_Click);
 			// 
 			// btn_Delete
 			// 
 			resources->ApplyResources(this->btn_Delete, L"btn_Delete");
 			this->btn_Delete->Name = L"btn_Delete";
 			this->btn_Delete->UseVisualStyleBackColor = true;
+			this->btn_Delete->Click += gcnew System::EventHandler(this, &MainForm::btn_Delete_Click);
 			// 
 			// groupBox2
 			// 
-			this->groupBox2->Controls->Add(this->btn_Refresh);
-			this->groupBox2->Controls->Add(this->dataGridView1);
+			this->groupBox2->Controls->Add(this->textBox2);
+			this->groupBox2->Controls->Add(this->textBox1);
 			resources->ApplyResources(this->groupBox2, L"groupBox2");
 			this->groupBox2->Name = L"groupBox2";
 			this->groupBox2->TabStop = false;
 			// 
-			// dataGridView1
+			// textBox2
 			// 
-			this->dataGridView1->AllowUserToAddRows = false;
-			this->dataGridView1->AllowUserToDeleteRows = false;
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			resources->ApplyResources(this->dataGridView1, L"dataGridView1");
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->ReadOnly = true;
+			resources->ApplyResources(this->textBox2, L"textBox2");
+			this->textBox2->Name = L"textBox2";
+			// 
+			// textBox1
+			// 
+			resources->ApplyResources(this->textBox1, L"textBox1");
+			this->textBox1->Name = L"textBox1";
 			// 
 			// btn_Refresh
 			// 
@@ -223,13 +232,22 @@ namespace SQLActions {
 			this->btn_Refresh->UseVisualStyleBackColor = true;
 			this->btn_Refresh->Click += gcnew System::EventHandler(this, &MainForm::btn_Refresh_Click);
 			// 
+			// datag_Insert
+			// 
+			this->datag_Insert->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			resources->ApplyResources(this->datag_Insert, L"datag_Insert");
+			this->datag_Insert->Name = L"datag_Insert";
+			this->datag_Insert->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::datag_Insert_CellContentClick);
+			// 
 			// MainForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->Controls->Add(this->datag_Insert);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->btn_Delete);
+			this->Controls->Add(this->btn_Refresh);
 			this->Controls->Add(this->btn_Update);
 			this->Controls->Add(this->btn_Insert);
 			this->Controls->Add(this->dataG_Results);
@@ -246,7 +264,8 @@ namespace SQLActions {
 			this->groupBox1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataG_Results))->EndInit();
 			this->groupBox2->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			this->groupBox2->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->datag_Insert))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -259,6 +278,7 @@ namespace SQLActions {
 		void UpdateFormState() {
 			btn_Select->Enabled = List_Tables->Items->Count > 0;
 			List_Tables->Enabled = List_Tables->Items->Count > 0;
+			btn_Insert->Enabled = List_Tables->Items->Count > 0;
 		}
 
 	private: System::Void btn_Connect_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -280,7 +300,6 @@ namespace SQLActions {
 				reader = query->ExecuteReader();
 				while (reader->Read()) {
 					List_Tables->Items->Add(reader->GetString(0));
-					//MessageBox::Show(reader->GetString(0));
 				}
 				//na elenxw an o h lista einai adiea.
 				List_Tables->SelectedIndex = 0;
@@ -297,8 +316,7 @@ namespace SQLActions {
 
 private: System::Void btn_Select_Click(System::Object^ sender, System::EventArgs^ e) {
 	//get Selected table
-	int index = List_Tables->SelectedIndex;
-	String^ table = List_Tables->Items[index]->ToString();
+	String^ table = List_Tables->Items[List_Tables->SelectedIndex]->ToString();
 	//get data from database.
 	MySqlDataAdapter^ SDA = gcnew MySqlDataAdapter;
 	//bind data to datagridview
@@ -317,6 +335,18 @@ private: System::Void btn_Select_Click(System::Object^ sender, System::EventArgs
 	catch (Exception^ e) {
 		MessageBox::Show(e->Message,"There was an error",MessageBoxButtons::OK,MessageBoxIcon::Error);
 	}
+
+	//create colums on insert datagramview
+	datag_Insert->Columns->Clear();
+	datag_Insert->Rows->Clear();
+	datag_Insert->Refresh();
+	array<int>^ visibleColumns = gcnew array<int>(30);
+
+	for each (DataGridViewColumn ^ col in dataG_Results->Columns)
+	{
+		//if (col->Name!="id")
+		if (dataG_Results->Visible) datag_Insert->Columns->Add((DataGridViewColumn^)col->Clone());
+	} 
 }
 private: System::Void btn_Logout_Click(System::Object^ sender, System::EventArgs^ e) {
 	
@@ -326,19 +356,61 @@ private: System::Void btn_Logout_Click(System::Object^ sender, System::EventArgs
 		lbl_ConnStatus->Text = "Not Connected";
 		List_Tables->Items->Clear();
 		dataG_Results->DataSource = NULL;
+		datag_Insert->Rows->Clear();
+		datag_Insert->Columns->Clear();
+		datag_Insert->Refresh();
 		UpdateFormState();
 	}
 }
 private: System::Void MainForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
-	if (mSql->getConnection()) {
-		mSql->getConnection()->Close();
-		delete mSql;
-	}
-	
 }
 private: System::Void btn_Insert_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ sqlQuery;
+	String^ finalSqlQuery;
+	String^ table = List_Tables->Items[List_Tables->SelectedIndex]->ToString();
+	try {
+		for (int i = 0; i < datag_Insert->Rows->Count-1; i++) {
+			mSql->getConnection()->Open();
+			sqlQuery = "insert into world." + table + " values(";
+			for (int col=0;col<datag_Insert->ColumnCount;col++){
+				String^ data="";
+				if (datag_Insert->Rows[i]->Cells[col]->Value != NULL) {
+					data = datag_Insert->Rows[i]->Cells[col]->Value->ToString();
+				}
+				sqlQuery+= "'" + data->Trim() + "'";
+				if (col < datag_Insert->ColumnCount - 1)
+				{
+					sqlQuery += ",";
+				}
+			}
+			sqlQuery += ")";
+			finalSqlQuery = sqlQuery;
+			MySqlCommand^ cmd = gcnew MySqlCommand(finalSqlQuery, mSql->getConnection());
+			cmd->ExecuteReader();
+			mSql->getConnection()->Close();
+		}
+		MessageBox::Show("Insert Completed", "Succsess",MessageBoxButtons::OK, MessageBoxIcon::Information);
+		datag_Insert->Rows->Clear();
+		datag_Insert->Refresh();
+	}
+	catch (Exception^ e) {
+		MessageBox::Show(e->Message);
+	}
+	finally {
+		mSql->getConnection()->Close();
+	}
 }
 private: System::Void btn_Refresh_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void btn_Update_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void btn_Delete_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void datag_Insert_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+
+}
+private: System::Void List_Tables_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	
 }
 };
 }

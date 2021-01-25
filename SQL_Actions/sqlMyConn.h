@@ -48,6 +48,5 @@ public:
 	MySqlConnection^ Connection() {
 		constring = L"datasource=" + host + "; port=3306; username=" + username + "; password=" + password;
 		return condb=gcnew MySqlConnection(constring);
-
 	}
 };

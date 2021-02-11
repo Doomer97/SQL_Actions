@@ -1,6 +1,7 @@
 #pragma once
 #include "sqlMyConn.h";
 #include<string>
+#include"About.h"
 //#include <msclr\marshal_cppstd.h>
 namespace SQLActions {
 
@@ -24,15 +25,16 @@ namespace SQLActions {
 			UpdateFormState();
 			
 		}
+		About^ AboutF=gcnew About();
 		sqlConn^ mSql;
 		DataTable^ dbDataToInsert = gcnew DataTable;
-
 	private: System::Windows::Forms::ListBox^ List_Tables;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Button^ btn_Select;
 	private: System::Windows::Forms::Button^ btn_Insert;
 	private: System::Windows::Forms::Button^ btn_Update;
 	private: System::Windows::Forms::GroupBox^ groupBox3;
+	private: System::Windows::Forms::Button^ btn_AboutMe;
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::TextBox^ textBox3;
 	private: System::Windows::Forms::ComboBox^ comboBox1;
@@ -107,6 +109,7 @@ namespace SQLActions {
 			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->btn_AboutMe = (gcnew System::Windows::Forms::Button());
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataG_Results))->BeginInit();
 			this->groupBox2->SuspendLayout();
@@ -283,11 +286,19 @@ namespace SQLActions {
 			resources->ApplyResources(this->label5, L"label5");
 			this->label5->Name = L"label5";
 			// 
+			// btn_AboutMe
+			// 
+			resources->ApplyResources(this->btn_AboutMe, L"btn_AboutMe");
+			this->btn_AboutMe->Name = L"btn_AboutMe";
+			this->btn_AboutMe->UseVisualStyleBackColor = true;
+			this->btn_AboutMe->Click += gcnew System::EventHandler(this, &MainForm::btn_AboutMe_Click);
+			// 
 			// MainForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->Controls->Add(this->btn_AboutMe);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->datag_Insert);
 			this->Controls->Add(this->groupBox2);
@@ -321,7 +332,7 @@ namespace SQLActions {
 		/*std::string Marshaling(String^ String) {
 			return msclr::interop::marshal_as<std::string>(String);
 		}*/
-		
+
 		void UpdateFormState() {
 			btn_Select->Enabled = List_Tables->Items->Count > 0;
 			List_Tables->Enabled = List_Tables->Items->Count > 0;
@@ -466,6 +477,9 @@ private: System::Void datag_Insert_CellContentClick(System::Object^ sender, Syst
 }
 private: System::Void List_Tables_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	
+}
+private: System::Void btn_AboutMe_Click(System::Object^ sender, System::EventArgs^ e) {
+	AboutF->ShowDialog();
 }
 };
 }

@@ -358,7 +358,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="List_Tables.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -382,7 +382,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;List_Tables.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -412,7 +412,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="btn_Select.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -445,7 +445,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btn_Select.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="dataG_Results.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 103</value>
@@ -466,7 +466,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;dataG_Results.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="btn_Insert.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -499,7 +499,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btn_Insert.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="btn_Update.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -532,7 +532,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btn_Update.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="btn_Delete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -544,7 +544,7 @@
     <value>NoControl</value>
   </data>
   <data name="btn_Delete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>634, 231</value>
+    <value>634, 267</value>
   </data>
   <data name="btn_Delete.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 23</value>
@@ -565,7 +565,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btn_Delete.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>81, 55</value>
@@ -610,7 +610,7 @@
     <value>1</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>634, 12</value>
+    <value>634, 48</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
     <value>268, 84</value>
@@ -631,7 +631,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="btn_Refresh.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -643,7 +643,7 @@
     <value>NoControl</value>
   </data>
   <data name="btn_Refresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>634, 102</value>
+    <value>634, 138</value>
   </data>
   <data name="btn_Refresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 23</value>
@@ -664,7 +664,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btn_Refresh.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="datag_Insert.Location" type="System.Drawing.Point, System.Drawing">
     <value>349, 463</value>
@@ -685,7 +685,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;datag_Insert.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -787,7 +787,7 @@
     <value>3</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>634, 131</value>
+    <value>634, 167</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>268, 94</value>
@@ -808,6 +808,30 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btn_AboutMe.Location" type="System.Drawing.Point, System.Drawing">
+    <value>634, 19</value>
+  </data>
+  <data name="btn_AboutMe.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 23</value>
+  </data>
+  <data name="btn_AboutMe.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="btn_AboutMe.Text" xml:space="preserve">
+    <value>----- About me -----</value>
+  </data>
+  <data name="&gt;&gt;btn_AboutMe.Name" xml:space="preserve">
+    <value>btn_AboutMe</value>
+  </data>
+  <data name="&gt;&gt;btn_AboutMe.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_AboutMe.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btn_AboutMe.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

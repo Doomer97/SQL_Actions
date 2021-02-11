@@ -21,15 +21,22 @@ namespace SQLActions {
 		MainForm(void)
 		{
 			InitializeComponent();
+			UpdateFormState();
 			
 		}
 		sqlConn^ mSql;
 		DataTable^ dbDataToInsert = gcnew DataTable;
+
 	private: System::Windows::Forms::ListBox^ List_Tables;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Button^ btn_Select;
 	private: System::Windows::Forms::Button^ btn_Insert;
 	private: System::Windows::Forms::Button^ btn_Update;
+	private: System::Windows::Forms::GroupBox^ groupBox3;
+	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::TextBox^ textBox3;
+	private: System::Windows::Forms::ComboBox^ comboBox1;
+	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::GroupBox^ groupBox2;
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::TextBox^ textBox1;
@@ -95,10 +102,16 @@ namespace SQLActions {
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->btn_Refresh = (gcnew System::Windows::Forms::Button());
 			this->datag_Insert = (gcnew System::Windows::Forms::DataGridView());
+			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataG_Results))->BeginInit();
 			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->datag_Insert))->BeginInit();
+			this->groupBox3->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// groupBox1
@@ -239,11 +252,43 @@ namespace SQLActions {
 			this->datag_Insert->Name = L"datag_Insert";
 			this->datag_Insert->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::datag_Insert_CellContentClick);
 			// 
+			// groupBox3
+			// 
+			this->groupBox3->Controls->Add(this->label6);
+			this->groupBox3->Controls->Add(this->textBox3);
+			this->groupBox3->Controls->Add(this->comboBox1);
+			this->groupBox3->Controls->Add(this->label5);
+			resources->ApplyResources(this->groupBox3, L"groupBox3");
+			this->groupBox3->Name = L"groupBox3";
+			this->groupBox3->TabStop = false;
+			// 
+			// label6
+			// 
+			resources->ApplyResources(this->label6, L"label6");
+			this->label6->Name = L"label6";
+			// 
+			// textBox3
+			// 
+			resources->ApplyResources(this->textBox3, L"textBox3");
+			this->textBox3->Name = L"textBox3";
+			// 
+			// comboBox1
+			// 
+			this->comboBox1->FormattingEnabled = true;
+			resources->ApplyResources(this->comboBox1, L"comboBox1");
+			this->comboBox1->Name = L"comboBox1";
+			// 
+			// label5
+			// 
+			resources->ApplyResources(this->label5, L"label5");
+			this->label5->Name = L"label5";
+			// 
 			// MainForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->datag_Insert);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->btn_Delete);
@@ -266,6 +311,8 @@ namespace SQLActions {
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->datag_Insert))->EndInit();
+			this->groupBox3->ResumeLayout(false);
+			this->groupBox3->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -274,18 +321,20 @@ namespace SQLActions {
 		/*std::string Marshaling(String^ String) {
 			return msclr::interop::marshal_as<std::string>(String);
 		}*/
-
+		
 		void UpdateFormState() {
 			btn_Select->Enabled = List_Tables->Items->Count > 0;
 			List_Tables->Enabled = List_Tables->Items->Count > 0;
 			btn_Insert->Enabled = List_Tables->Items->Count > 0;
+			btn_Connect->Enabled = lbl_ConnStatus->Text != "Not Connected";
+			btn_Logout->Enabled = lbl_ConnStatus->Text != "Not connected";
 		}
 
 	private: System::Void btn_Connect_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (String::IsNullOrEmpty(txtBox_Username->Text) || String::IsNullOrEmpty(txtBox_Password->Text)) {
-			String^ Message = "Username or password should not be empty";
-			String^ Caption = "Debug message";
-			if (MessageBox::Show(Message, Caption, MessageBoxButtons::OK, MessageBoxIcon::Information) == System::Windows::Forms::DialogResult::OK) {
+			String^ Message = "Username and password should not be empty";
+			String^ Caption = "Warning";
+			if (MessageBox::Show(Message, Caption, MessageBoxButtons::OK, MessageBoxIcon::Exclamation) == System::Windows::Forms::DialogResult::OK) {
 
 			}
 		}
@@ -335,6 +384,9 @@ private: System::Void btn_Select_Click(System::Object^ sender, System::EventArgs
 	catch (Exception^ e) {
 		MessageBox::Show(e->Message,"There was an error",MessageBoxButtons::OK,MessageBoxIcon::Error);
 	}
+	finally {
+		mSql->getConnection()->Close();
+	}
 
 	//create colums on insert datagramview
 	datag_Insert->Columns->Clear();
@@ -353,7 +405,7 @@ private: System::Void btn_Logout_Click(System::Object^ sender, System::EventArgs
 	if (mSql->getConnection()) {
 		mSql->getConnection()->Close();
 		delete mSql;
-		lbl_ConnStatus->Text = "Not Connected";
+		lbl_ConnStatus->Text = "Not connected";
 		List_Tables->Items->Clear();
 		dataG_Results->DataSource = NULL;
 		datag_Insert->Rows->Clear();
@@ -376,6 +428,9 @@ private: System::Void btn_Insert_Click(System::Object^ sender, System::EventArgs
 				String^ data="";
 				if (datag_Insert->Rows[i]->Cells[col]->Value != NULL) {
 					data = datag_Insert->Rows[i]->Cells[col]->Value->ToString();
+				}
+				else {
+					data="";
 				}
 				sqlQuery+= "'" + data->Trim() + "'";
 				if (col < datag_Insert->ColumnCount - 1)

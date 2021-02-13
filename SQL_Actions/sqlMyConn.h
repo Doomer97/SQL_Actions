@@ -25,7 +25,7 @@ public:
 		username = "\0";
 		password = "\0";
 		constring = "\0";
-		condb=nullptr;
+		delete condb;
 	};
 	String^ getUsername() {
 		return username;

@@ -2,7 +2,6 @@
 #include"sqlMyConn.h"
 #include<string>
 #include"About.h"
-//#include <msclr\marshal_cppstd.h>
 namespace SQLActions {
 
 	using namespace System;
@@ -54,11 +53,11 @@ namespace SQLActions {
 	private: System::Windows::Forms::ComboBox^ cmBox_DeleteBy;
 
 	private: System::Windows::Forms::Label^ label5;
-	private: System::Windows::Forms::GroupBox^ groupBox2;
-	private: System::Windows::Forms::TextBox^ textBox2;
-	private: System::Windows::Forms::TextBox^ textBox1;
+
+
+
 	private: System::Windows::Forms::DataGridView^ datag_Insert;
-	private: System::Windows::Forms::Button^ btn_Refresh;
+
 	private: System::Windows::Forms::Button^ btn_Delete;
 	private: System::Windows::Forms::DataGridView^ dataG_Results;
 	protected:
@@ -115,10 +114,6 @@ namespace SQLActions {
 			this->btn_Insert = (gcnew System::Windows::Forms::Button());
 			this->btn_Update = (gcnew System::Windows::Forms::Button());
 			this->btn_Delete = (gcnew System::Windows::Forms::Button());
-			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->btn_Refresh = (gcnew System::Windows::Forms::Button());
 			this->datag_Insert = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
@@ -136,7 +131,6 @@ namespace SQLActions {
 			this->txtBox_OldVal = (gcnew System::Windows::Forms::TextBox());
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataG_Results))->BeginInit();
-			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->datag_Insert))->BeginInit();
 			this->groupBox3->SuspendLayout();
 			this->groupBox4->SuspendLayout();
@@ -256,31 +250,6 @@ namespace SQLActions {
 			this->btn_Delete->UseVisualStyleBackColor = true;
 			this->btn_Delete->Click += gcnew System::EventHandler(this, &MainForm::btn_Delete_Click);
 			// 
-			// groupBox2
-			// 
-			this->groupBox2->Controls->Add(this->textBox2);
-			this->groupBox2->Controls->Add(this->textBox1);
-			resources->ApplyResources(this->groupBox2, L"groupBox2");
-			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->TabStop = false;
-			// 
-			// textBox2
-			// 
-			resources->ApplyResources(this->textBox2, L"textBox2");
-			this->textBox2->Name = L"textBox2";
-			// 
-			// textBox1
-			// 
-			resources->ApplyResources(this->textBox1, L"textBox1");
-			this->textBox1->Name = L"textBox1";
-			// 
-			// btn_Refresh
-			// 
-			resources->ApplyResources(this->btn_Refresh, L"btn_Refresh");
-			this->btn_Refresh->Name = L"btn_Refresh";
-			this->btn_Refresh->UseVisualStyleBackColor = true;
-			this->btn_Refresh->Click += gcnew System::EventHandler(this, &MainForm::btn_Refresh_Click);
-			// 
 			// datag_Insert
 			// 
 			this->datag_Insert->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
@@ -390,8 +359,6 @@ namespace SQLActions {
 			this->Controls->Add(this->btn_AboutMe);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->datag_Insert);
-			this->Controls->Add(this->groupBox2);
-			this->Controls->Add(this->btn_Refresh);
 			this->Controls->Add(this->btn_Insert);
 			this->Controls->Add(this->dataG_Results);
 			this->Controls->Add(this->btn_Select);
@@ -406,8 +373,6 @@ namespace SQLActions {
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataG_Results))->EndInit();
-			this->groupBox2->ResumeLayout(false);
-			this->groupBox2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->datag_Insert))->EndInit();
 			this->groupBox3->ResumeLayout(false);
 			this->groupBox3->PerformLayout();
@@ -418,9 +383,6 @@ namespace SQLActions {
 
 		}
 #pragma endregion
-		/*std::string Marshaling(String^ String) {
-			return msclr::interop::marshal_as<std::string>(String);
-		}*/
 
 		void UpdateFormState() {
 			bool TablesCountMoreThatOne=List_Tables->Items->Count > 0;
@@ -442,11 +404,11 @@ namespace SQLActions {
 			MessageBox::Show(Message, Caption, MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
 		}
 		else {
-			mSql = gcnew sqlConn(txtBox_Username->Text, txtBox_Password->Text);
-			mSql->setCondb(mSql->Connection());
-			MySqlCommand^ query = gcnew MySqlCommand("show tables from world",mSql->getConnection());
-			MySqlDataReader^ reader;
 			try {
+				mSql = gcnew sqlConn(txtBox_Username->Text, txtBox_Password->Text);
+				mSql->setCondb(mSql->Connection());
+				MySqlCommand^ query = gcnew MySqlCommand("show tables from world", mSql->getConnection());
+				MySqlDataReader^ reader;
 				mSql->getConnection()->Open();
 				lbl_ConnStatus->Text = "Connected As:" + mSql->getUsername();
 				reader = query->ExecuteReader();
@@ -609,7 +571,7 @@ private: System::Void btn_Delete_Click(System::Object^ sender, System::EventArgs
 	try {
 		mSql->getConnection()->Open();
 		reader = query->ExecuteReader();
-		MessageBox::Show("All Rows with value='"+txtBox_DeleteValue->Text+"' have been deleted", "Complete",MessageBoxButtons::OK ,MessageBoxIcon::Information);
+		MessageBox::Show("All Rows with "+ cmBox_DeleteBy->Text +"='"+txtBox_DeleteValue->Text+"' have been deleted", "Complete",MessageBoxButtons::OK ,MessageBoxIcon::Information);
 	}
 	catch (Exception^ ex) {
 		MessageBox::Show(ex->Message, "SLQ Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);

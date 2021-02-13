@@ -21,9 +21,6 @@
     <ClInclude Include="sqlMyConn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Insert.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="About.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -33,9 +30,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sqlMyConn.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Insert.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

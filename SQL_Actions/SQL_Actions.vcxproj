@@ -129,15 +129,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Insert.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="sqlMyConn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="About.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="Insert.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MainForm.h">
@@ -148,9 +144,6 @@
   <ItemGroup>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Insert.resx">
-      <DependentUpon>Insert.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>

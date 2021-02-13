@@ -15,6 +15,7 @@ public:
 	sqlConn() {
 
 	};//Default
+
 	sqlConn(String^ uname, String^ pass) {
 		setUsername(uname);
 		setPassword(pass);
@@ -25,7 +26,6 @@ public:
 		password = "\0";
 		constring = "\0";
 		condb=nullptr;
-		//System::Windows::Forms::MessageBox::Show("Im the destructor!");
 	};
 	String^ getUsername() {
 		return username;

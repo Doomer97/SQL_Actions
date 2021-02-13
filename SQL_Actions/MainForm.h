@@ -1,5 +1,5 @@
 #pragma once
-#include "sqlMyConn.h";
+#include"sqlMyConn.h"
 #include<string>
 #include"About.h"
 //#include <msclr\marshal_cppstd.h>
@@ -32,12 +32,27 @@ namespace SQLActions {
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Button^ btn_Select;
 	private: System::Windows::Forms::Button^ btn_Insert;
+	private: System::Windows::Forms::Button^ btn_EasyLog;
+	private: System::Windows::Forms::ComboBox^ cmBox_UpdateBy;
+	private: System::Windows::Forms::GroupBox^ groupBox4;
+	private: System::Windows::Forms::Label^ label9;
+	private: System::Windows::Forms::Label^ label8;
+	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::TextBox^ txtBox_NewVal;
+	private: System::Windows::Forms::TextBox^ txtBox_OldVal;
+
+
+
+	private: System::Windows::Forms::TextBox^ textBox3;
+	private: System::Windows::Forms::Button^ btn_Exit;
 	private: System::Windows::Forms::Button^ btn_Update;
 	private: System::Windows::Forms::GroupBox^ groupBox3;
 	private: System::Windows::Forms::Button^ btn_AboutMe;
 	private: System::Windows::Forms::Label^ label6;
-	private: System::Windows::Forms::TextBox^ textBox3;
-	private: System::Windows::Forms::ComboBox^ comboBox1;
+	private: System::Windows::Forms::TextBox^ txtBox_DeleteValue;
+
+	private: System::Windows::Forms::ComboBox^ cmBox_DeleteBy;
+
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::GroupBox^ groupBox2;
 	private: System::Windows::Forms::TextBox^ textBox2;
@@ -84,6 +99,7 @@ namespace SQLActions {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->btn_EasyLog = (gcnew System::Windows::Forms::Button());
 			this->btn_Logout = (gcnew System::Windows::Forms::Button());
 			this->lbl_ConnStatus = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
@@ -106,19 +122,29 @@ namespace SQLActions {
 			this->datag_Insert = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->txtBox_DeleteValue = (gcnew System::Windows::Forms::TextBox());
+			this->cmBox_DeleteBy = (gcnew System::Windows::Forms::ComboBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->btn_AboutMe = (gcnew System::Windows::Forms::Button());
+			this->btn_Exit = (gcnew System::Windows::Forms::Button());
+			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
+			this->cmBox_UpdateBy = (gcnew System::Windows::Forms::ComboBox());
+			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->txtBox_NewVal = (gcnew System::Windows::Forms::TextBox());
+			this->txtBox_OldVal = (gcnew System::Windows::Forms::TextBox());
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataG_Results))->BeginInit();
 			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->datag_Insert))->BeginInit();
 			this->groupBox3->SuspendLayout();
+			this->groupBox4->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->btn_EasyLog);
 			this->groupBox1->Controls->Add(this->btn_Logout);
 			this->groupBox1->Controls->Add(this->lbl_ConnStatus);
 			this->groupBox1->Controls->Add(this->label3);
@@ -130,6 +156,13 @@ namespace SQLActions {
 			resources->ApplyResources(this->groupBox1, L"groupBox1");
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->TabStop = false;
+			// 
+			// btn_EasyLog
+			// 
+			resources->ApplyResources(this->btn_EasyLog, L"btn_EasyLog");
+			this->btn_EasyLog->Name = L"btn_EasyLog";
+			this->btn_EasyLog->UseVisualStyleBackColor = true;
+			this->btn_EasyLog->Click += gcnew System::EventHandler(this, &MainForm::btn_EasyLog_Click);
 			// 
 			// btn_Logout
 			// 
@@ -258,9 +291,10 @@ namespace SQLActions {
 			// groupBox3
 			// 
 			this->groupBox3->Controls->Add(this->label6);
-			this->groupBox3->Controls->Add(this->textBox3);
-			this->groupBox3->Controls->Add(this->comboBox1);
+			this->groupBox3->Controls->Add(this->txtBox_DeleteValue);
+			this->groupBox3->Controls->Add(this->cmBox_DeleteBy);
 			this->groupBox3->Controls->Add(this->label5);
+			this->groupBox3->Controls->Add(this->btn_Delete);
 			resources->ApplyResources(this->groupBox3, L"groupBox3");
 			this->groupBox3->Name = L"groupBox3";
 			this->groupBox3->TabStop = false;
@@ -270,16 +304,18 @@ namespace SQLActions {
 			resources->ApplyResources(this->label6, L"label6");
 			this->label6->Name = L"label6";
 			// 
-			// textBox3
+			// txtBox_DeleteValue
 			// 
-			resources->ApplyResources(this->textBox3, L"textBox3");
-			this->textBox3->Name = L"textBox3";
+			resources->ApplyResources(this->txtBox_DeleteValue, L"txtBox_DeleteValue");
+			this->txtBox_DeleteValue->Name = L"txtBox_DeleteValue";
+			this->txtBox_DeleteValue->TextChanged += gcnew System::EventHandler(this, &MainForm::txtBox_DeleteValue_TextChanged);
 			// 
-			// comboBox1
+			// cmBox_DeleteBy
 			// 
-			this->comboBox1->FormattingEnabled = true;
-			resources->ApplyResources(this->comboBox1, L"comboBox1");
-			this->comboBox1->Name = L"comboBox1";
+			this->cmBox_DeleteBy->FormattingEnabled = true;
+			resources->ApplyResources(this->cmBox_DeleteBy, L"cmBox_DeleteBy");
+			this->cmBox_DeleteBy->Name = L"cmBox_DeleteBy";
+			this->cmBox_DeleteBy->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::cmBox_DeleteBy_SelectedIndexChanged);
 			// 
 			// label5
 			// 
@@ -293,18 +329,69 @@ namespace SQLActions {
 			this->btn_AboutMe->UseVisualStyleBackColor = true;
 			this->btn_AboutMe->Click += gcnew System::EventHandler(this, &MainForm::btn_AboutMe_Click);
 			// 
+			// btn_Exit
+			// 
+			resources->ApplyResources(this->btn_Exit, L"btn_Exit");
+			this->btn_Exit->Name = L"btn_Exit";
+			this->btn_Exit->UseVisualStyleBackColor = true;
+			this->btn_Exit->Click += gcnew System::EventHandler(this, &MainForm::btn_Exit_Click);
+			// 
+			// groupBox4
+			// 
+			this->groupBox4->Controls->Add(this->cmBox_UpdateBy);
+			this->groupBox4->Controls->Add(this->label9);
+			this->groupBox4->Controls->Add(this->label8);
+			this->groupBox4->Controls->Add(this->label7);
+			this->groupBox4->Controls->Add(this->txtBox_NewVal);
+			this->groupBox4->Controls->Add(this->txtBox_OldVal);
+			this->groupBox4->Controls->Add(this->btn_Update);
+			resources->ApplyResources(this->groupBox4, L"groupBox4");
+			this->groupBox4->Name = L"groupBox4";
+			this->groupBox4->TabStop = false;
+			// 
+			// cmBox_UpdateBy
+			// 
+			this->cmBox_UpdateBy->FormattingEnabled = true;
+			resources->ApplyResources(this->cmBox_UpdateBy, L"cmBox_UpdateBy");
+			this->cmBox_UpdateBy->Name = L"cmBox_UpdateBy";
+			// 
+			// label9
+			// 
+			resources->ApplyResources(this->label9, L"label9");
+			this->label9->Name = L"label9";
+			// 
+			// label8
+			// 
+			resources->ApplyResources(this->label8, L"label8");
+			this->label8->Name = L"label8";
+			// 
+			// label7
+			// 
+			resources->ApplyResources(this->label7, L"label7");
+			this->label7->Name = L"label7";
+			// 
+			// txtBox_NewVal
+			// 
+			resources->ApplyResources(this->txtBox_NewVal, L"txtBox_NewVal");
+			this->txtBox_NewVal->Name = L"txtBox_NewVal";
+			// 
+			// txtBox_OldVal
+			// 
+			resources->ApplyResources(this->txtBox_OldVal, L"txtBox_OldVal");
+			this->txtBox_OldVal->Name = L"txtBox_OldVal";
+			// 
 			// MainForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->Controls->Add(this->groupBox4);
+			this->Controls->Add(this->btn_Exit);
 			this->Controls->Add(this->btn_AboutMe);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->datag_Insert);
 			this->Controls->Add(this->groupBox2);
-			this->Controls->Add(this->btn_Delete);
 			this->Controls->Add(this->btn_Refresh);
-			this->Controls->Add(this->btn_Update);
 			this->Controls->Add(this->btn_Insert);
 			this->Controls->Add(this->dataG_Results);
 			this->Controls->Add(this->btn_Select);
@@ -324,6 +411,8 @@ namespace SQLActions {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->datag_Insert))->EndInit();
 			this->groupBox3->ResumeLayout(false);
 			this->groupBox3->PerformLayout();
+			this->groupBox4->ResumeLayout(false);
+			this->groupBox4->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -334,20 +423,23 @@ namespace SQLActions {
 		}*/
 
 		void UpdateFormState() {
-			btn_Select->Enabled = List_Tables->Items->Count > 0;
-			List_Tables->Enabled = List_Tables->Items->Count > 0;
-			btn_Insert->Enabled = List_Tables->Items->Count > 0;
-			btn_Connect->Enabled = lbl_ConnStatus->Text != "Not Connected";
+			bool TablesCountMoreThatOne=List_Tables->Items->Count > 0;
+			btn_Select->Enabled = TablesCountMoreThatOne;
+			List_Tables->Enabled = TablesCountMoreThatOne;
+			btn_Insert->Enabled = TablesCountMoreThatOne;
+			btn_Connect->Enabled = lbl_ConnStatus->Text == "Not connected";
 			btn_Logout->Enabled = lbl_ConnStatus->Text != "Not connected";
+			cmBox_DeleteBy->Enabled = TablesCountMoreThatOne;
+			txtBox_DeleteValue->Enabled = TablesCountMoreThatOne;
+			btn_Delete->Enabled= lbl_ConnStatus->Text != "Not connected";
+			btn_Update->Enabled = lbl_ConnStatus->Text != "Not connected";
 		}
 
 	private: System::Void btn_Connect_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (String::IsNullOrEmpty(txtBox_Username->Text) || String::IsNullOrEmpty(txtBox_Password->Text)) {
 			String^ Message = "Username and password should not be empty";
 			String^ Caption = "Warning";
-			if (MessageBox::Show(Message, Caption, MessageBoxButtons::OK, MessageBoxIcon::Exclamation) == System::Windows::Forms::DialogResult::OK) {
-
-			}
+			MessageBox::Show(Message, Caption, MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
 		}
 		else {
 			mSql = gcnew sqlConn(txtBox_Username->Text, txtBox_Password->Text);
@@ -365,6 +457,8 @@ namespace SQLActions {
 				List_Tables->SelectedIndex = 0;
 				UpdateFormState();
 				mSql->getConnection()->Close();
+				txtBox_Username->Clear();
+				txtBox_Password->Clear();
 			}
 			catch (Exception^ ex) {
 				MessageBox::Show(ex->Message,"SLQ Error!",MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -391,6 +485,25 @@ private: System::Void btn_Select_Click(System::Object^ sender, System::EventArgs
 		dataG_Results->DataSource = bSource;
 		SDA->Update(dbDataSet);
 		mSql->getConnection()->Close();
+
+		//create colums on insert datagramview
+		datag_Insert->Columns->Clear();
+		datag_Insert->Rows->Clear();
+		datag_Insert->Refresh();
+		int i = 0;
+		cmBox_DeleteBy->Items->Clear();
+		cmBox_DeleteBy->Text = "";
+		cmBox_UpdateBy->Items->Clear();
+		cmBox_UpdateBy->Text = "";
+		for each (DataGridViewColumn ^ col in dataG_Results->Columns)
+		{
+			//if (col->Name!="id")
+			if (dataG_Results->Visible)	datag_Insert->Columns->Add((DataGridViewColumn^)col->Clone());
+			//add columns to the combobox
+			cmBox_DeleteBy->Items->Add(dbDataSet->Columns[i]->ToString());
+			cmBox_UpdateBy->Items->Add(dbDataSet->Columns[i]->ToString());
+			i++;
+		}
 	}
 	catch (Exception^ e) {
 		MessageBox::Show(e->Message,"There was an error",MessageBoxButtons::OK,MessageBoxIcon::Error);
@@ -399,17 +512,7 @@ private: System::Void btn_Select_Click(System::Object^ sender, System::EventArgs
 		mSql->getConnection()->Close();
 	}
 
-	//create colums on insert datagramview
-	datag_Insert->Columns->Clear();
-	datag_Insert->Rows->Clear();
-	datag_Insert->Refresh();
-	array<int>^ visibleColumns = gcnew array<int>(30);
-
-	for each (DataGridViewColumn ^ col in dataG_Results->Columns)
-	{
-		//if (col->Name!="id")
-		if (dataG_Results->Visible) datag_Insert->Columns->Add((DataGridViewColumn^)col->Clone());
-	} 
+	
 }
 private: System::Void btn_Logout_Click(System::Object^ sender, System::EventArgs^ e) {
 	
@@ -423,6 +526,8 @@ private: System::Void btn_Logout_Click(System::Object^ sender, System::EventArgs
 		datag_Insert->Columns->Clear();
 		datag_Insert->Refresh();
 		UpdateFormState();
+		txtBox_Username->Clear();
+		txtBox_Password->Clear();
 	}
 }
 private: System::Void MainForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
@@ -469,8 +574,51 @@ private: System::Void btn_Insert_Click(System::Object^ sender, System::EventArgs
 private: System::Void btn_Refresh_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void btn_Update_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (!String::IsNullOrEmpty(cmBox_UpdateBy->Text) && !String::IsNullOrEmpty(txtBox_OldVal->Text) && !String::IsNullOrEmpty(txtBox_NewVal->Text)) {
+		String^ table = List_Tables->Items[List_Tables->SelectedIndex]->ToString();
+
+			MySqlCommand^ query = gcnew MySqlCommand("update world." + table +
+				" set " + cmBox_UpdateBy->Text + "='" + txtBox_NewVal->Text + "'"
+				+ " where " + cmBox_UpdateBy->Text + "='" + txtBox_OldVal->Text + "';", mSql->getConnection());
+			MySqlDataReader^ reader;
+			try {
+			mSql->getConnection()->Open();
+				reader = query->ExecuteReader();
+				MessageBox::Show("All Rows with value='" + txtBox_OldVal->Text + "' have been updated to " + txtBox_NewVal->Text, "Complete", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(ex->Message, "SLQ Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+		finally {
+			UpdateFormState();
+			mSql->getConnection()->Close();
+		}
+		txtBox_OldVal->Clear();
+		txtBox_NewVal->Clear();
+	}
+	else {
+		MessageBox::Show("Fileds must not be empty.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
 }
 private: System::Void btn_Delete_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ table = List_Tables->Items[List_Tables->SelectedIndex]->ToString();
+
+	MySqlCommand^ query = gcnew MySqlCommand("delete from world." + table + " where " + cmBox_DeleteBy->Text 
+				+ "='"+txtBox_DeleteValue->Text+"'", mSql->getConnection());
+	MySqlDataReader^ reader;
+	try {
+		mSql->getConnection()->Open();
+		reader = query->ExecuteReader();
+		MessageBox::Show("All Rows with value='"+txtBox_DeleteValue->Text+"' have been deleted", "Complete",MessageBoxButtons::OK ,MessageBoxIcon::Information);
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show(ex->Message, "SLQ Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+	finally {
+		UpdateFormState();
+		mSql->getConnection()->Close();
+	}
+	txtBox_DeleteValue->Clear();
 }
 private: System::Void datag_Insert_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 
@@ -480,6 +628,25 @@ private: System::Void List_Tables_SelectedIndexChanged(System::Object^ sender, S
 }
 private: System::Void btn_AboutMe_Click(System::Object^ sender, System::EventArgs^ e) {
 	AboutF->ShowDialog();
+}
+private: System::Void txtBox_DeleteValue_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (String::IsNullOrEmpty(txtBox_DeleteValue->Text)) {
+		btn_Delete->Enabled = false;
+	}
+	else {
+		btn_Delete->Enabled = true;
+	}
+}
+private: System::Void cmBox_DeleteBy_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void btn_Exit_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (MessageBox::Show("Are you sure you want to exit?", "Exit?", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes) {
+		this->Close();
+	}
+}
+private: System::Void btn_EasyLog_Click(System::Object^ sender, System::EventArgs^ e) {
+	txtBox_Username->Text = "k702459";
+	txtBox_Password->Text = "K@$t0r1@";
 }
 };
 }
